@@ -28,6 +28,17 @@ var routes = Routes{
 			w.Write([]byte("{\"result\":\"OK\"}"))
 		},
 	},
+
+	Route{
+		"GetAlive", // Name
+		"GET",      // HTTP method
+		"/alive",   // Route pattern
+		func(w http.ResponseWriter, r *http.Request) {
+			log.Println("Got request from " + r.RemoteAddr)
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.Write([]byte("{\"result\":\"OK\"}"))
+		},
+	},
 }
 
 func StartWebServer(port string) {
