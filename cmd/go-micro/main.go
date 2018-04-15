@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-microservice/internal/pkg/webserver"
+
+	"github.com/derryx/go-microservice/internal/pkg/webserver"
 )
 
 var appName = "go-micro"
