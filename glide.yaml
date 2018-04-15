@@ -1,8 +1,4 @@
 package: .
 import:
-- package: github.com/derryx/go-microservice
-  version: ~0.0.7
-  subpackages:
-  - internal/pkg/webserver
 - package: github.com/gorilla/mux
   version: ~1.6.1
