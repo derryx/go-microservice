@@ -1,6 +1,10 @@
 package webserver
 
-import "github.com/gorilla/mux"
+import (
+	"log"
+
+	"github.com/gorilla/mux"
+)
 
 func NewRouter() *mux.Router {
 	// Create an instance of the Gorilla router
@@ -12,6 +16,7 @@ func NewRouter() *mux.Router {
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(route.HandlerFunc)
+		log.Printf("Serving %s on %s", route.Name, route.Pattern)
 	}
 	return router
 }
