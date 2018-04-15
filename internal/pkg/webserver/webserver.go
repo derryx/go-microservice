@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 )
@@ -10,6 +11,11 @@ type Route struct {
 	Method      string
 	Pattern     string
 	HandlerFunc http.HandlerFunc
+}
+
+type someResponse struct {
+	AccountId int
+	Name      string
 }
 
 // Defines the type Routes which is just an array (slice) of Route structs.
@@ -25,7 +31,9 @@ var routes = Routes{
 		func(w http.ResponseWriter, r *http.Request) {
 			log.Println("Got request from " + r.RemoteAddr)
 			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-			w.Write([]byte("{\"result\":\"OK\"}"))
+			resD := &someResponse{AccountId: 42, Name: "Hans Wurst"}
+			resB, _ := json.Marshal(resD)
+			w.Write(resB)
 		},
 	},
 
@@ -47,7 +55,7 @@ func StartWebServer(port string) {
 	http.Handle("/", r)                       // NEW
 	err := http.ListenAndServe(":"+port, nil) // Goroutine will block here
 	if err != nil {
-		log.Println("An error occured starting HTTP listener at port " + port)
-		log.Println("Error: " + err.Error())
+		log.Fatal("An error occured starting HTTP listener at port " + port)
+		log.Fatal("Error: " + err.Error())
 	}
 }
