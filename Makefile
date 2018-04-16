@@ -18,7 +18,7 @@ check: fmt build test
 build: depend
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
-test: 
+test: depend
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 full: $(PKGS)
@@ -42,7 +42,7 @@ depend:
 	glide install
 	
 
-.PHONY: depend release clean
+.PHONY: release clean
 
 FGT := $(GOPATH)/bin/fgt
 $(FGT):
