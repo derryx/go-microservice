@@ -23,7 +23,7 @@ test: depend
 
 coverage: depend
 	for pkg in $(PKGS); do \
-	   CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(pkg) -test.v -coverprofile=coverage_$(pkg).out" ; \
+	   CGO_ENABLED=$(CGO_ENABLED) $(GO) test $$pkg -test.v -coverprofile=coverage_$$pkg.out ; \
 	done ;
 
 full: $(PKGS)
