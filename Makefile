@@ -19,7 +19,12 @@ build: depend
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
 test: depend
-	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v -coverprofile=coverage.out
+	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
+
+coverage: depend
+    for pkg in $(PKGS); do \
+	   CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(pkg) -test.v -coverprofile=coverage_$(pkg).out" ; \
+	done ;
 
 full: $(PKGS)
 
@@ -61,7 +66,7 @@ $(PKGS): $(GOLINT) $(FGT)
 	@go test -v $@
 
 .PHONY: lint
-lint: vendor | $(PKGS) $(GOLINT) # ❷
+lint: vendor | $(PKGS) $(GOLINT) 
 	@cd $(BASE) && ret=0 && for pkg in $(PKGS); do \
 	    test -z "$$($(GOLINT) $$pkg | tee /dev/stderr)" || ret=1 ; \
 	done ; exit $$ret
