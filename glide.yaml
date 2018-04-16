@@ -2,3 +2,5 @@ package: .
 import:
 - package: github.com/gorilla/mux
   version: ~1.6.1
+- package: github.com/smartystreets/goconvey
+  version: ~1.6.3

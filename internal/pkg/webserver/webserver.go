@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 type Route struct {
@@ -30,10 +33,17 @@ var routes = Routes{
 		"/accounts/{accountId}", // Route pattern
 		func(w http.ResponseWriter, r *http.Request) {
 			log.Println("Got request from " + r.RemoteAddr)
-			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-			resD := &someResponse{AccountId: 42, Name: "Hans Wurst"}
-			resB, _ := json.Marshal(resD)
-			w.Write(resB)
+			vars := mux.Vars(r)
+			accountId, err := strconv.Atoi(vars["accountId"])
+			if err != nil {
+				log.Fatalf("Cannot parse %v, error was %v", vars["accountId"], err)
+				w.WriteHeader(http.StatusBadRequest)
+			} else {
+				w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+				resD := &someResponse{AccountId: accountId, Name: "Hans Wurst"}
+				resB, _ := json.Marshal(resD)
+				w.Write(resB)
+			}
 		},
 	},
 

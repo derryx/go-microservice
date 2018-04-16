@@ -16,7 +16,7 @@ func NewRouter() *mux.Router {
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(route.HandlerFunc)
-		log.Printf("Serving %s on %s", route.Name, route.Pattern)
+		log.Printf("Serving %v on %v\n", route.Name, route.Pattern)
 	}
 	return router
 }

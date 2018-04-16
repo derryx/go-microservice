@@ -1,14 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"os"
 
 	"github.com/derryx/go-microservice/internal/pkg/webserver"
 )
 
 var appName = "go-micro"
 
+func setupLogger() {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+}
+
 func main() {
-	fmt.Printf("Starting %v\n", appName)
+	setupLogger()
+	log.Printf("Starting %v\n", appName)
 	webserver.StartWebServer("8080") // NEW
 }
