@@ -25,6 +25,7 @@ pipeline {
           dir ('/home/jenkins/go/src/github.com/derryx/go-microservice') {
             checkout scm
             container('go') {
+              sh "make test"
               sh "make linux"
               sh "docker build -t \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:$PREVIEW_VERSION ."
               sh "docker push \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:$PREVIEW_VERSION"
@@ -59,6 +60,7 @@ pipeline {
             }
             dir ('/home/jenkins/go/src/github.com/derryx/go-microservice') {
               container('go') {
+                sh "make test"
                 sh "make build"
                 sh "docker build -t \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:\$(cat VERSION) ."
                 sh "docker push \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:\$(cat VERSION)"
