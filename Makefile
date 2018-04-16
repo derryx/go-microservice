@@ -22,7 +22,7 @@ test: depend
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 coverage: depend
-    for pkg in $(PKGS); do \
+	for pkg in $(PKGS); do \
 	   CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(pkg) -test.v -coverprofile=coverage_$(pkg).out" ; \
 	done ;
 
