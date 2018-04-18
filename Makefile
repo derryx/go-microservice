@@ -22,7 +22,7 @@ test: depend
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 coverage: depend
-	CGO_ENABLED=$(CGO_ENABLED) $(GO) test -coverpkg=./... -coverprofile=coverage.out 
+	CGO_ENABLED=$(CGO_ENABLED) $(GO) test -coverpkg=./... -coverprofile=coverage.out $(PKGS)
 
 full: $(PKGS)
 
@@ -45,7 +45,7 @@ depend:
 	glide install
 	
 
-.PHONY: release clean
+.PHONY: release clean depend
 
 FGT := $(GOPATH)/bin/fgt
 $(FGT):
