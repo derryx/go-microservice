@@ -9,13 +9,13 @@ import (
 func TestSpec(t *testing.T) {
 	// Only pass t into top-level Convey calls
 	Convey("Given some integer with a starting value", t, func() {
-		x := 2
+		x := 3
 
 		Convey("When the integer is incremented", func() {
 			x++
 
 			Convey("The value should be greater by one", func() {
-				So(x, ShouldEqual, 3)
+				So(x, ShouldEqual, 4)
 			})
 		})
 	})
