@@ -9,20 +9,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Route struct {
-	Name        string
-	Method      string
-	Pattern     string
-	HandlerFunc http.HandlerFunc
-}
-
 type someResponse struct {
 	AccountId int
 	Name      string
 }
-
-// Defines the type Routes which is just an array (slice) of Route structs.
-type Routes []Route
 
 // Initialize our routes
 var routes = Routes{
@@ -61,7 +51,7 @@ var routes = Routes{
 
 func StartWebServer(port string) {
 	log.Println("Starting HTTP service at " + port)
-	r := NewRouter()                          // NEW
+	r := NewRouter(routes)                    // NEW
 	http.Handle("/", r)                       // NEW
 	err := http.ListenAndServe(":"+port, nil) // Goroutine will block here
 	if err != nil {

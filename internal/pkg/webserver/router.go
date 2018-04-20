@@ -2,11 +2,22 @@ package webserver
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func NewRouter() *mux.Router {
+type Route struct {
+	Name        string
+	Method      string
+	Pattern     string
+	HandlerFunc http.HandlerFunc
+}
+
+// Defines the type Routes which is just an array (slice) of Route structs.
+type Routes []Route
+
+func NewRouter(routes Routes) *mux.Router {
 	// Create an instance of the Gorilla router
 	router := mux.NewRouter().StrictSlash(true)
 	// Iterate over the routes we declared in routes.go and attach them to the router instance
